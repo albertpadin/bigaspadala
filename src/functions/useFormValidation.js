@@ -1,52 +1,53 @@
-export function useFormValidation(initialValue, options) {
-    const [value, setValue] = useState(initialValue);
-    const [errors, setErrors] = useState([]);
-    const [dirty, setDirty] = useState(false)
-  
-    function checkForErrors(value) {
-      const newErrors = [];
-  
-      if (options.minLength && value.length < options.minLength) {
-        newErrors.push(`You need a minimum of ${options.minLength} characters`);
-      }
-  
-      if (options.minLength && value.length > options.maxLength) {
-        newErrors.push(
-          `You have exceeded the max characters of ${options.maxLength}`
-        );
-      }
-  
-      if (options.required && value.length === 0) {
-        newErrors.push("This field is required");
-      }
-  
-      setErrors(newErrors);
+function useFormValidation(initialValue, options) {
+  const [value, setValue] = useState(initialValue);
+  const [errors, setErrors] = useState([]);
+  const [dirty, setDirty] = useState(false);
+
+  function checkForErrors(value) {
+    const newErrors = [];
+
+    if (options.minLength && value.length < options.minLength) {
+      newErrors.push(`You need a minimum of ${options.minLength} characters`);
     }
-  
-    function onChangeHandler(event) {
-      const { value } = event.target;
+
+    if (options.minLength && value.length > options.maxLength) {
+      newErrors.push(
+        `You have exceeded the max characters of ${options.maxLength}`
+      );
+    }
+
+    if (options.required && value.length === 0) {
+      newErrors.push("This field is required");
+    }
+
+    setErrors(newErrors);
+  }
+
+  function onChangeHandler(event) {
+    const { value } = event.target;
+    setValue(value);
+
+    if (dirty) {
       checkForErrors(value);
-      setValue(value);
     }
-  
-    function onBlurHandler() {
-      setDirty(true)
-    }
-  
-    return {
-      value,
-      errors,
-      dirty,
-      onBlur: onBlurHandler,
-      onChange: onChangeHandler
-    };
+  }
+
+  function onBlurHandler() {
+    setDirty(true);
+  }
+
+  return {
+    value,
+    errors,
+    onBlur: onBlurHandler,
+    onChange: onChangeHandler
+  };
 }
 
-
-// Example Usage
+// Example
 // 
 // function App() {
-//   const { errors: nameErrors, dirty: nameDirty, ...name } = useFormValidation("", {
+//   const { errors, ...name } = useFormValidation("", {
 //     required: true,
 //     minLength: 3,
 //     maxLength: 6
@@ -55,10 +56,11 @@ export function useFormValidation(initialValue, options) {
 //   return (
 //     <div className="App">
 //       <input {...name} />
-//       {nameDirty && nameErrors.map(nameError => (
+//       {errors.map(nameError => (
 //         <p>{nameError}</p>
 //       ))}
-//       <h2>Start editing to see some magic happen!</h2>
+
+//       <h5>The value of name: {name.value}</h5>
 //     </div>
 //   );
 // }

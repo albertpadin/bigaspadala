@@ -1,4 +1,4 @@
-function useFormValidation(initialValue, options) {
+export function useFormValidation(initialValue, options) {
     const [value, setValue] = useState(initialValue);
     const [errors, setErrors] = useState([]);
     const [dirty, setDirty] = useState(false)
@@ -41,3 +41,24 @@ function useFormValidation(initialValue, options) {
       onChange: onChangeHandler
     };
 }
+
+
+// Example Usage
+// 
+// function App() {
+//   const { errors: nameErrors, dirty: nameDirty, ...name } = useFormValidation("", {
+//     required: true,
+//     minLength: 3,
+//     maxLength: 6
+//   });
+
+//   return (
+//     <div className="App">
+//       <input {...name} />
+//       {nameDirty && nameErrors.map(nameError => (
+//         <p>{nameError}</p>
+//       ))}
+//       <h2>Start editing to see some magic happen!</h2>
+//     </div>
+//   );
+// }

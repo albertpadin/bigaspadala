@@ -5,12 +5,9 @@
 import webapp2
 import logging
 
-
-class MainPage(webapp2.RequestHandler):
-    def get(self):
-        self.response.write("Hello")
+from handlers.pages.front import FrontPage
 
 
 app = webapp2.WSGIApplication([
-    ('/', MainPage)
+    ('/', FrontPage)
 ], debug=True)

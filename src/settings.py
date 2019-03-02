@@ -26,3 +26,6 @@ def prod_server():
 
 
 APPENGINE_SERVICE_ACCOUNT = "{}@appspot.gserviceaccount.com".format(app_id())
+
+SITE_NAME = "My New GAE Site"
+GOOGLE_ANALYTICS_ID = ""

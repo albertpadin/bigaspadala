@@ -1,13 +1,13 @@
 {
-  "name": "appengine-hello-world",
-  "description": "Simple Hello World Node.js sample for Google App Engine Standard Environment.",
+  "name": "bisgaspadala",
+  "description": "",
   "version": "0.0.1",
   "private": true,
   "license": "Apache-2.0",
   "author": "Google Inc.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/GoogleCloudPlatform/nodejs-docs-samples.git"
+    "url": "git@github.com:albertpadin/bigaspadala.git"
   },
   "engines": {
     "node": ">=8.0.0"

@@ -35,6 +35,7 @@ module.exports = {
     alias: {
       '@': path.resolve(__dirname, 'frontend'),
       '@components': path.resolve(__dirname, 'frontend/components'),
+      '@pages': path.resolve(__dirname, 'frontend/pages'),
     },
   },
 

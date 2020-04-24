@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'antd/es/button';
+import { Button } from 'antd';
 import style from './Send.module.css';
 
 const Send = () => {

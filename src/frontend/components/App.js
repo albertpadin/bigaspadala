@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import Button from 'antd/es/button';
+import { Button } from 'antd';
 
 const Home = lazy(() => import('@pages/Home'));
 const Send = lazy(() => import('@pages/Send'));

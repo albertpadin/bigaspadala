@@ -54,19 +54,3 @@ The build files are placed in the `frontend-dist` directory. Hosting these files
 should make sure to serve this is a single-page application (i.e. all server-side
 routes should serve the same page) in order for React Router's client-side routing
 to work.
-
-### Ant Design UI Library
-
-This project also has the [Ant Design](https://ant.design/) UI library set up,
-providing us with React components for common UI elements.
-
-When importing a component from `antd`, be sure to import that component
-directly to keep our bundle size small.
-
-```js
-// Don't do this:
-import { Button } form 'antd';
-
-// Do this instead:
-import Button from 'antd/es/button';
-```

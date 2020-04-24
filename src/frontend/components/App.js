@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 
-import Home from '@pages/Home';
-import Send from '@pages/Send';
+const Home = lazy(() => import('@pages/Home'));
+const Send = lazy(() => import('@pages/Send'));
 
 const App = () => {
   return (
@@ -10,10 +10,12 @@ const App = () => {
       <Link to="/">Home</Link>
       <Link to="/send">Send</Link>
 
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/send" component={Send} />
-      </Switch>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/send" component={Send} />
+        </Switch>
+      </Suspense>
     </BrowserRouter>
   );
 };

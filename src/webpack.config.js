@@ -12,6 +12,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'frontend-dist'),
     filename: '[name].[hash:6].js',
+    chunkFilename: '[name].[hash:6].js',
     publicPath: '/',
   },
 

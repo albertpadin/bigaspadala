@@ -16,7 +16,7 @@
     "start": "node app.js",
     "clean": "trash frontend-dist",
     "prebuild": "npm run clean",
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack",
     "watch": "webpack --watch",
     "test": "mocha --exit test/*.test.js"
   },
@@ -36,7 +36,9 @@
     "css-loader": "^3.5.3",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
     "mocha": "^6.1.4",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "style-loader": "^1.2.0",
     "supertest": "^4.0.2",
     "trash-cli": "^3.0.0",

@@ -1,5 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -23,7 +26,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
           {
             loader: 'css-loader',
             options: {
@@ -53,5 +56,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './frontend/index.html',
     }),
+
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash:6].css',
+    }),
   ],
+
+  optimization: {
+    minimizer: [new TerserPlugin(), new OptimizeCssAssetsPlugin()],
+  },
 };

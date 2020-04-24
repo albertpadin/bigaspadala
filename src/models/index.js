@@ -1,6 +1,15 @@
+const {Datastore} = require('@google-cloud/datastore');
+
+const datastore = new Datastore();
+
+
 async function getPricePerKilo() {
-  // TODO: get the value from database
-  return 50;
+  const query = datastore
+    .createQuery('Config')
+    .filter('__key__', '=', datastore.key(['Config', 'price_per_kilo']));
+
+  const [price_per_kilo] = await datastore.runQuery(query);
+  return price_per_kilo[0].value;
 }
 
 
@@ -8,27 +17,23 @@ async function getPricePerKilo() {
  * Array of registered partner stores
  */
 async function getPartners() {
-  // TODO: get values from the database
-  return [
-    {
-      name: "Store 1",
-      coordinate: {
-        latitude: 10.123,
-        longitude: 123.45,
-      },
-      contact_number: "09191234567",
-      stock: "high"
-    },
-    {
-      name: "Store 2",
-      coordinate: {
-        latitude: 20.123,
-        longitude: 93.45,
-      },
-      contact_number: "09191234568",
-      stock: "low"
-    }
-  ]
+  // sample data
+  // [{
+  //   "contact_number": "0982132",
+  //   "timestamp": "2020-04-24T18:15:00.000Z",
+  //   "stock": "low",
+  //   "name": "Arnelle Store",
+  //   "coordinates": {
+  //     "latitude":89,
+  //     "longitude":87
+  //   }
+  // }]
+  const query = datastore
+    .createQuery('Partners')
+    .order('name', {descending: false});
+
+  const [partners] = await datastore.runQuery(query);
+  return partners;
 }
 
 

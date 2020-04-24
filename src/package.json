@@ -14,6 +14,10 @@
   },
   "scripts": {
     "start": "node app.js",
+    "clean": "trash frontend-dist",
+    "prebuild": "npm run clean",
+    "build": "webpack",
+    "watch": "webpack --watch",
     "test": "mocha --exit test/*.test.js"
   },
   "dependencies": {
@@ -33,6 +37,7 @@
     "mocha": "^6.1.4",
     "style-loader": "^1.2.0",
     "supertest": "^4.0.2",
+    "trash-cli": "^3.0.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   }

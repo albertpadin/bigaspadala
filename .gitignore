@@ -88,4 +88,4 @@ typings/
 .dynamodb/
 
 # Project-specific files
-src/dist
+src/frontend-dist

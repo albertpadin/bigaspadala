@@ -7,7 +7,7 @@ module.exports = {
   entry: './frontend/index.js',
 
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'frontend-dist'),
     filename: '[name].[hash:6].js',
     publicPath: '/',
   },
@@ -33,8 +33,8 @@ module.exports = {
 
   resolve: {
     alias: {
-      '@': './frontend',
-      '@components': './frontend/components',
+      '@': path.resolve(__dirname, 'frontend'),
+      '@components': path.resolve(__dirname, 'frontend/components'),
     },
   },
 

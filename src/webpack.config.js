@@ -6,6 +6,18 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+const cssLoaders = [
+  isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+  {
+    loader: 'css-loader',
+    options: {
+      modules: {
+        auto: true,
+      },
+    },
+  },
+];
+
 module.exports = {
   entry: './frontend/index.js',
 
@@ -26,13 +38,17 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        use: cssLoaders,
+      },
+      {
+        test: /\.less$/,
         use: [
-          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          ...cssLoaders,
           {
-            loader: 'css-loader',
+            loader: 'less-loader',
             options: {
-              modules: {
-                auto: true,
+              lessOptions: {
+                javascriptEnabled: true,
               },
             },
           },

@@ -5,10 +5,11 @@ This is the sample application for the
 tutorial found in the [Google App Engine Node.js standard environment][appengine]
 documentation.
 
-* [Setup](#setup)
-* [Running locally](#running-locally)
-* [Deploying to App Engine](#deploying-to-app-engine)
-* [Running the tests](#running-the-tests)
+- [Setup](#setup)
+- [Running locally](#running-locally)
+- [Deploying to App Engine](#deploying-to-app-engine)
+- [Running the tests](#running-the-tests)
+- [React Frontend](#react-frontend)
 
 ## Setup
 
@@ -36,3 +37,36 @@ See [Contributing][contributing].
 [tutorial]: https://cloud.google.com/appengine/docs/standard/nodejs/quickstart
 [readme]: ../../README.md
 [contributing]: https://github.com/GoogleCloudPlatform/nodejs-docs-samples/blob/master/CONTRIBUTING.md
+
+## React Frontend
+
+This project uses [ReactJS](https://reactjs.org/) for the frontend. The frontend
+code needs to be built separately using the following commands:
+
+```bash
+npm run build
+
+# During development, to auto-build on change
+npm run watch
+```
+
+The build files are placed in the `frontend-dist` directory. Hosting these files
+should make sure to serve this is a single-page application (i.e. all server-side
+routes should serve the same page) in order for React Router's client-side routing
+to work.
+
+### Ant Design UI Library
+
+This project also has the [Ant Design](https://ant.design/) UI library set up,
+providing us with React components for common UI elements.
+
+When importing a component from `antd`, be sure to import that component
+directly to keep our bundle size small.
+
+```js
+// Don't do this:
+import { Button } form 'antd';
+
+// Do this instead:
+import Button from 'antd/es/button';
+```

@@ -19,6 +19,7 @@
   "dependencies": {
     "@google-cloud/datastore": "^5.1.0",
     "@google-cloud/storage": "^4.7.0",
+    "cors": "^2.8.5",
     "express": "^4.16.3"
   },
   "devDependencies": {

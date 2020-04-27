@@ -1,6 +1,8 @@
 const {Datastore} = require('@google-cloud/datastore');
+const Paymongo = require('paymongo');
 
 const datastore = new Datastore();
+const paymongo = new Paymongo(process.env.PAYMONGO_SECRET_KEY);
 
 
 async function getPricePerKilo() {
@@ -37,7 +39,27 @@ async function getPartners() {
 }
 
 
+async function createPaymentIntent(amount, metadata) {
+  const perKiloPrice = await getPricePerKilo();
+  const kilos = parseInt(amount / perKiloPrice);
+  const payload = {
+    data: {
+      attributes: {
+        amount: amount * 100,  // this is in cents so we multiply by 100
+        currency: 'PHP',
+        payment_method_allowed: ['card'],
+        statement_descriptor: `${kilos} kilos of rice`,
+      }
+    }
+  };
+
+  const result = await paymongo.paymentIntents.create(payload);
+  return result;
+}
+
+
 module.exports = {
   getPricePerKilo,
-  getPartners
+  getPartners,
+  createPaymentIntent,
 }

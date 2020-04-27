@@ -5,12 +5,19 @@
 'use strict';
 
 const express = require('express');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-const { getPricePerKilo, getPartners } = require('./models');
+const {
+  getPricePerKilo,
+  getPartners,
+  createPaymentIntent,
+} = require('./models');
 
 const API_V1_PATH = '/api/v1/';
 
@@ -38,6 +45,30 @@ app.get(`${API_V1_PATH}partners`, async (req, res) => {
     .status(200)
     .send(partners)
     .end();
+});
+
+/**
+ * Create paymongo payment intent
+ */
+app.post(`${API_V1_PATH}create-payment-intent`, async (req, res) => {
+  const amount  = req.body.amount;
+
+  try {
+    const result = await createPaymentIntent(amount);
+
+    res
+      .status(200)
+      .send({
+        id: result.data.id,
+        client_key: result.data.attributes.client_key,
+      })
+      .end();
+  } catch(e) {
+    res
+      .status(400)
+      .send(e)
+      .end();
+  }
 });
 
 

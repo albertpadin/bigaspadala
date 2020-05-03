@@ -39,6 +39,9 @@ async function getPartners() {
 }
 
 
+/**
+ * Create payment intent in paymongo
+ */
 async function createPaymentIntent(amount, metadata) {
   const perKiloPrice = await getPricePerKilo();
   const kilos = parseInt(amount / perKiloPrice);
@@ -58,8 +61,29 @@ async function createPaymentIntent(amount, metadata) {
 }
 
 
+/**
+ * Create a payment method in paymongo. DO NOT USE THIS IN PROD, just for
+ * testing
+ */
+async function createPaymentMethod(details) {
+  const payload = {
+    data: {
+      attributes: {
+        type: 'card',
+        details: {
+          ...details
+        }
+      }
+    }
+  };
+  const result = await paymongo.paymentMethods.create(payload);
+  return result;
+}
+
+
 module.exports = {
   getPricePerKilo,
   getPartners,
   createPaymentIntent,
+  createPaymentMethod,
 }

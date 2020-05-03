@@ -17,6 +17,7 @@ const {
   getPricePerKilo,
   getPartners,
   createPaymentIntent,
+  createPaymentMethod,
 } = require('./models');
 
 const API_V1_PATH = '/api/v1/';
@@ -57,12 +58,34 @@ app.post(`${API_V1_PATH}create-payment-intent`, async (req, res) => {
     const result = await createPaymentIntent(amount);
 
     res
-      .status(200)
+      .status(201)
       .send({
         id: result.data.id,
         client_key: result.data.attributes.client_key,
       })
       .end();
+  } catch(e) {
+    res
+      .status(400)
+      .send(e)
+      .end();
+  }
+});
+
+
+app.post(`${API_V1_PATH}create-payment-method`, async (req, res) => {
+  try {
+    const result = await createPaymentMethod({
+      card_number: req.body.card_number,
+      exp_month: req.body.exp_month,
+      exp_year: req.body.exp_year,
+      cvc: req.body.cvc
+    });
+
+    res
+      .status(201)
+      .send(result)
+      .end()
   } catch(e) {
     res
       .status(400)

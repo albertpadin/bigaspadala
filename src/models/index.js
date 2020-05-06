@@ -60,6 +60,37 @@ async function createPaymentIntent(amount, metadata) {
   return result;
 }
 
+/**
+ * Attach a payment method to a payment intent
+ */
+async function attachPaymentMethodToIntent(intentId, methodId) {
+  const payload = {
+    data: {
+      attributes: {
+        payment_method: methodId
+      }
+    }
+  };
+  await paymongo.paymentIntents.attach(intentId, payload);
+  const result = await paymongo.paymentIntents.retrieve(intentId);
+
+  if (result.data && result.data.attributes && result.data.attributes.status === 'awaiting_next_action') {
+    return {
+      status: result.data.attributes.status,
+      next_action: result.data.attributes.next_action,
+      payment_method_options: result.data.attributes.payment_method_options
+    }
+  }
+  return result;
+}
+
+
+async function getPaymentIntentDetail(intentId) {
+  const result = await paymongo.paymentIntents.retrieve(intentId);
+  return result;
+}
+
+
 
 /**
  * Create a payment method in paymongo. DO NOT USE THIS IN PROD, just for
@@ -86,4 +117,6 @@ module.exports = {
   getPartners,
   createPaymentIntent,
   createPaymentMethod,
+  attachPaymentMethodToIntent,
+  getPaymentIntentDetail,
 }

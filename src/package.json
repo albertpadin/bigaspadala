@@ -17,10 +17,13 @@
     "test": "mocha --exit test/*.test.js"
   },
   "dependencies": {
+    "@babel/runtime": "^7.9.2",
     "@google-cloud/datastore": "^5.1.0",
     "@google-cloud/storage": "^4.7.0",
     "cors": "^2.8.5",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "paymongo": "^1.0.1",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "mocha": "^6.1.4",
